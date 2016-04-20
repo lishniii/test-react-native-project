@@ -106,7 +106,7 @@ class Third extends Component {
                     <View style={styles.mapContainer}><Image
                         source={require('./resources/images/map.png')}
                         /></View>
-                    <View collapsable={true}>
+                    <ScrollView>
                         <View style={styles.typeContainer}><Text style={styles.typeHeadingText}>Type of
                             Store</Text></View>
                         <View style={styles.typePlaceholderContainer}><Text style={styles.typePlaceholderText}>M1
@@ -125,22 +125,78 @@ class Third extends Component {
                         </TouchableHighlight></View>
 
                         <View style={styles.resultsContainer}>
+                            <Text style={styles.resultsHeadingText}>Results</Text>
                         </View>
-                    </View>
+                        <View style={styles.resultsDetailsContainer}>
+                            <Image
+                                style={styles.locationIcon}
+                                source={require('./resources/icons/location.png')}
+                                />
+                            <Text style={styles.resultsDetailsText}>Causeway Point
+                            1, Woodlands Square
+                            #03-01 Causeway Point
+                            Singapore 738099
+                            Nearest MRT Station:
+                            Woodlands (NS9)</Text></View>
+                        <View style={styles.resultsDetailsContainer}>
+                            <Image
+                                style={styles.locationIcon}
+                                source={require('./resources/icons/location.png')}
+                                />
+                            <Text style={styles.resultsDetailsText}>Causeway Point
+                                1, Woodlands Square
+                                #03-01 Causeway Point
+                                Singapore 738099
+                                Nearest MRT Station:
+                                Woodlands (NS9)</Text></View>
+                        <View style={styles.resultsDetailsContainer}>
+                            <Image
+                                style={styles.locationIcon}
+                                source={require('./resources/icons/location.png')}
+                                />
+                            <Text style={styles.resultsDetailsText}>Causeway Point
+                                1, Woodlands Square
+                                #03-01 Causeway Point
+                                Singapore 738099
+                                Nearest MRT Station:
+                                Woodlands (NS9)</Text></View>
+                        <View style={styles.resultsDetailsContainer}>
+                            <Image
+                                style={styles.locationIcon}
+                                source={require('./resources/icons/location.png')}
+                                />
+                            <Text style={styles.resultsDetailsText}>Causeway Point
+                                1, Woodlands Square
+                                #03-01 Causeway Point
+                                Singapore 738099
+                                Nearest MRT Station:
+                                Woodlands (NS9)</Text></View>
+                        <View style={styles.resultsDetailsContainer}>
+                            <Image
+                                style={styles.locationIcon}
+                                source={require('./resources/icons/location.png')}
+                                />
+                            <Text style={styles.resultsDetailsText}>Causeway Point
+                                1, Woodlands Square
+                                #03-01 Causeway Point
+                                Singapore 738099
+                                Nearest MRT Station:
+                                Woodlands (NS9)</Text></View>
+                    </ScrollView>
                 </View>
                 <Modal style={styles.openModalChangeType} position={"center"} ref={'modalChangeType'}
                        isDisabled={this.state.isDisabled}>
                     <View>
                         <View style={styles.modalHeading}><Text style={styles.modalHeadingText}>Type of
                             Store</Text></View>
-                        <View style={styles.triangle}></View>
+
                     </View>
                 </Modal>
                 <Modal style={styles.openModalChangeLocation} position={"center"} ref={'modalChangeLocation'}
                        isDisabled={this.state.isDisabled}>
                     <View>
                         <View style={styles.modalHeading}><Text style={styles.modalHeadingText}>Location</Text></View>
-                        <View style={styles.triangle}></View>
+
                     </View>
                 </Modal>
             </DrawerLayoutAndroid>
@@ -192,18 +248,18 @@ const styles = StyleSheet.create({
     },
     typeContainer: {
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 100 * 7,
+        height: 30
     },
     typeHeadingText: {
         marginLeft: 20,
-        marginTop: 25,
+        marginTop: 11,
         fontSize: 12,
         textAlign: 'left',
         color: '#93999d',
     },
     typePlaceholderContainer: {
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 100 * 8,
+        height: 50,
         backgroundColor: '#fbfbfb',
         borderTopWidth: 1,
         borderBottomWidth: 1,
@@ -220,11 +276,11 @@ const styles = StyleSheet.create({
     },
     locationContainer: {
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 100 * 7,
+        height: 30
     },
     locationHeadingText: {
         marginLeft: 20,
-        marginTop: 25,
+        marginTop: 11,
         fontSize: 12,
         textAlign: 'left',
         color: '#93999d',
@@ -270,7 +326,40 @@ const styles = StyleSheet.create({
         fontSize: 12,
         color: '#656d73',
     },
-    resultsContainer: {},
+    locationIcon: {
+        marginTop: 20,
+        marginLeft: 10,
+        width: 20,
+        height: 25,
+    },
+    resultsContainer: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height / 100 * 7,
+    },
+    resultsHeadingText: {
+        marginLeft: 20,
+        marginTop: 25,
+        fontSize: 12,
+        textAlign: 'left',
+        color: '#93999d',
+    },
+    resultsDetailsContainer: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height / 100 * 12,
+        backgroundColor: '#fbfbfb',
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderColor: '#bfbdbc',
+        flexDirection: 'row',
+    },
+    resultsDetailsText: {
+        width: Dimensions.get('window').width / 100 * 85,
+        marginLeft: 10,
+        marginTop: 15,
+        fontSize: 14,
+        textAlign: 'left',
+        color: '#898989',
+    },
     openModalChangeType: {
         width: Dimensions.get('window').width / 100 * 70,
         height: Dimensions.get('window').height / 100 * 40,
