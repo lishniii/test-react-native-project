@@ -14,11 +14,40 @@ import React, {
     TextInput,
     Image,
     DrawerLayoutAndroid,
+    ScrollView,
 } from 'react-native';
 
+var Modal = require('react-native-modalbox');
 var _navigator;
 
 class Third extends Component {
+    constructor(props, context) {
+        super(props, context);
+
+        this.state = {
+            isOpen: false,
+            isDisabled: false,
+            swipeToClose: true,
+            sliderValue: 0.3
+        };
+    }
+
+    openModalChangeType() {
+        this.refs['modalChangeType'].open()
+    }
+
+    openModalChangeLocation() {
+        this.refs['modalChangeLocation'].open()
+    }
+
+    toggleDisable() {
+        this.setState({isDisabled: !this.state.isDisabled})
+    }
+
+    toggleSwipeToClose() {
+        this.setState({swipeToClose: !this.state.swipeToClose})
+    }
+
     navSecond() {
         this.props.navigator.push({
             id: 'second'
@@ -78,22 +107,51 @@ class Third extends Component {
                         source={require('./resources/images/map.png')}
                         /></View>
                     <View collapsable={true}>
-                        <View style={styles.typeContainer}><Text style={styles.typePlaceholderText}>TYPE OF TEXT</Text></View>
-                        <View style={styles.typePlaceholderContainer}></View>
-                        <View style={styles.locationContainer}><Text style={styles.locationPlaceholderText}>LOCATION</Text></View>
-                        <View style={styles.locationPlaceholderContainer}></View>
+                        <View style={styles.typeContainer}><Text style={styles.typeHeadingText}>Type of
+                            Store</Text></View>
+                        <View style={styles.typePlaceholderContainer}><Text style={styles.typePlaceholderText}>M1
+                            Store</Text><TouchableHighlight style={styles.changeTypeButton}
+                                                            onPress={this.openModalChangeType.bind(this)}><Image
+                            style={{width: 15, height: 15,}}
+                            source={require('./resources/icons/arrow.png')}
+                            />
+                        </TouchableHighlight></View>
+                        <View style={styles.locationContainer}><Text style={styles.locationHeadingText}>Location</Text></View>
+                        <View style={styles.locationPlaceholderContainer}><Text style={styles.locationPlaceholderText}>Central</Text><TouchableHighlight
+                            style={styles.changeLocationButton} onPress={this.openModalChangeLocation.bind(this)}><Image
+                            style={{width: 15, height: 15,}}
+                            source={require('./resources/icons/arrow.png')}
+                            />
+                        </TouchableHighlight></View>
 
                         <View style={styles.resultsContainer}>
                         </View>
                     </View>
                 </View>
+                <Modal style={styles.openModalChangeType} position={"center"} ref={'modalChangeType'}
+                       isDisabled={this.state.isDisabled}>
+                    <View>
+                        <View style={styles.modalHeading}><Text style={styles.modalHeadingText}>Type of
+                            Store</Text></View>
+                        <View style={styles.triangle}></View>
+                    </View>
+                </Modal>
+                <Modal style={styles.openModalChangeLocation} position={"center"} ref={'modalChangeLocation'}
+                       isDisabled={this.state.isDisabled}>
+                    <View>
+                        <View style={styles.modalHeading}><Text style={styles.modalHeadingText}>Location</Text></View>
+                        <View style={styles.triangle}></View>
+                    </View>
+                </Modal>
             </DrawerLayoutAndroid>
+
         );
 
     }
 }
 
 const styles = StyleSheet.create({
+
     background: {
         backgroundColor: '#3f4952',
         paddingTop: 20,
@@ -136,42 +194,119 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height / 100 * 7,
     },
-    typePlaceholderText: {
+    typeHeadingText: {
         marginLeft: 20,
         marginTop: 25,
-        fontSize: 10,
+        fontSize: 12,
         textAlign: 'left',
         color: '#93999d',
     },
     typePlaceholderContainer: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height / 100 * 8,
-        backgroundColor: '#e6e7e9',
+        backgroundColor: '#fbfbfb',
         borderTopWidth: 1,
         borderBottomWidth: 1,
-        borderColor: '#d2d2d2'
+        borderColor: '#bfbdbc',
+        flexDirection: 'row',
+    },
+    typePlaceholderText: {
+        width: Dimensions.get('window').width / 100 * 85,
+        marginLeft: 20,
+        marginTop: 15,
+        fontSize: 14,
+        textAlign: 'left',
+        color: '#898989',
     },
     locationContainer: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height / 100 * 7,
     },
-    locationPlaceholderText: {
+    locationHeadingText: {
         marginLeft: 20,
         marginTop: 25,
-        fontSize: 10,
+        fontSize: 12,
         textAlign: 'left',
         color: '#93999d',
     },
     locationPlaceholderContainer: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height / 100 * 8,
-        backgroundColor: '#e6e7e9',
+        backgroundColor: '#fbfbfb',
         borderTopWidth: 1,
         borderBottomWidth: 1,
-        borderColor: '#d2d2d2'
+        borderColor: '#bfbdbc',
+        flexDirection: 'row',
+    },
+    locationPlaceholderText: {
+        width: Dimensions.get('window').width / 100 * 85,
+        marginLeft: 20,
+        marginTop: 15,
+        fontSize: 14,
+        textAlign: 'left',
+        color: '#898989',
+    },
+    changeTypeButton: {
+        width: 41,
+        height: 20,
+        marginBottom: 16,
+        alignSelf: 'flex-end',
+        justifyContent: 'flex-end',
+        /*borderBottomWidth: 1,
+        borderColor: '#656d73'*/
+    },
+    changeLocationButton: {
+        width: 41,
+        height: 20,
+        marginBottom: 16,
+        alignSelf: 'flex-end',
+        justifyContent: 'flex-end',
+    },
+    typeChangeButtonText: {
+        fontSize: 12,
+        color: '#656d73',
+    },
+    locationChangeButtonText: {
+        fontSize: 12,
+        color: '#656d73',
     },
     resultsContainer: {},
-
+    openModalChangeType: {
+        width: Dimensions.get('window').width / 100 * 70,
+        height: Dimensions.get('window').height / 100 * 40,
+        backgroundColor: '#fbfbfb',
+    },
+    openModalChangeLocation: {
+        width: Dimensions.get('window').width / 100 * 70,
+        height: Dimensions.get('window').height / 100 * 50,
+        backgroundColor: '#fbfbfb',
+    },
+    modalHeading: {
+        width: Dimensions.get('window').width / 100 * 70,
+        height: Dimensions.get('window').height / 100 * 10,
+        backgroundColor: '#f37124',
+    },
+    triangle: {
+        width: 0,
+        height: 0,
+        backgroundColor: 'transparent',
+        borderStyle: 'solid',
+        borderLeftWidth: 5,
+        borderRightWidth: 5,
+        borderBottomWidth: 10,
+        borderLeftColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderBottomColor: '#f37124',
+        alignSelf: 'center',
+        transform: [
+            {rotate: '180deg'}
+        ]
+    },
+    modalHeadingText: {
+        marginTop: 20,
+        fontSize: 18,
+        textAlign: 'center',
+        color: '#fff',    }
 });
 
 module.exports = Third;

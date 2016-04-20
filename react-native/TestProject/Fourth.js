@@ -1,62 +1,65 @@
-/**
- * Created by lishni on 4/4/16.
- */
-import React, {
+"use strict";
+
+var React = require('react-native');
+var ListPopover = require('react-native-list-popover');
+var {
     AppRegistry,
     StyleSheet,
-    Component,
-    ToolbarAndroid,
     Text,
-    View,
-    BackAndroid,
     TouchableHighlight,
-    Dimensions,
-    TextInput,
-    Image,
-    DrawerLayoutAndroid,
-} from 'react-native';
+    View,
+    } = React;
+var items = ["Item 1", "Item 2"];
 
-var _navigator;
+var Fourth = React.createClass({
+    getInitialState: function() {
+        return {
+            item: "Select Item",
+            isVisible: false,
+        };
+    },
 
-class Fourth extends Component {
-    navSecond() {
-        this.props.navigator.push({
-            id: 'second'
-        })
-    }
-    render() {
+    showPopover: function() {
+        this.setState({isVisible: true});
+    },
+    closePopover: function() {
+        this.setState({isVisible: false});
+    },
+    setItem: function(item) {
+        this.setState({item: item});
+    },
+
+    render: function() {
         return (
+            <View style={styles.container}>
+                <TouchableHighlight style={styles.button} onPress={this.showPopover}>
+                    <Text>{this.state.item}</Text>
+                </TouchableHighlight>
 
-                    <TouchableHighlight onPress={this.navSecond.bind(this)}>
-                        <Text
-                            style={{margin: 10, fontSize: 15, textAlign: 'left'}}>Fourth page</Text>
-                    </TouchableHighlight>
-
+                <ListPopover
+                    list={items}
+                    isVisible={this.state.isVisible}
+                    onClick={this.setItem}
+                    onClose={this.closePopover}/>
+            </View>
         );
-
     }
-}
+});
 
-const styles = StyleSheet.create({
-    background: {
-        backgroundColor: '#3f4952',
-        paddingTop: 20,
-        height: Dimensions.get('window').height,
-    },
+var styles = StyleSheet.create({
     container: {
-        backgroundColor: '#f37124',
-        flexDirection: 'row',
-        paddingTop: 20,
-        paddingLeft: 20,
-        height: Dimensions.get('window').height / 100 * 10,
-
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#532860',
     },
-    menuIcon: {
-
+    button: {
+        borderRadius: 4,
+        padding: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        backgroundColor: "#B8C",
     },
 });
 
 module.exports = Fourth;
-/**
- * Created by lishni on 4/4/16.
- */
