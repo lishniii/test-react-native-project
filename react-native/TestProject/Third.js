@@ -40,6 +40,14 @@ class Third extends Component {
         this.refs['modalChangeLocation'].open()
     }
 
+    closeModalChangeLocation() {
+        this.refs['modalChangeLocation'].close()
+    }
+
+    closeModalChangeType() {
+        this.refs['modalChangeType'].close()
+    }
+
     toggleDisable() {
         this.setState({isDisabled: !this.state.isDisabled})
     }
@@ -107,8 +115,8 @@ class Third extends Component {
                         source={require('./resources/images/map.png')}
                         /></View>
                     <ScrollView>
-                        <View style={styles.typeContainer}><Text style={styles.typeHeadingText}>Type of
-                            Store</Text></View>
+                        <View style={styles.typeContainer}><Text style={styles.typeHeadingText}>TYPE OF
+                            STORE</Text></View>
                         <View style={styles.typePlaceholderContainer}><Text style={styles.typePlaceholderText}>M1
                             Store</Text><TouchableHighlight style={styles.changeTypeButton}
                                                             onPress={this.openModalChangeType.bind(this)}><Image
@@ -116,7 +124,8 @@ class Third extends Component {
                             source={require('./resources/icons/arrow.png')}
                             />
                         </TouchableHighlight></View>
-                        <View style={styles.locationContainer}><Text style={styles.locationHeadingText}>Location</Text></View>
+                        <View style={styles.locationContainer}><Text
+                            style={styles.locationHeadingText}>AREA</Text></View>
                         <View style={styles.locationPlaceholderContainer}><Text style={styles.locationPlaceholderText}>Central</Text><TouchableHighlight
                             style={styles.changeLocationButton} onPress={this.openModalChangeLocation.bind(this)}><Image
                             style={{width: 15, height: 15,}}
@@ -125,7 +134,7 @@ class Third extends Component {
                         </TouchableHighlight></View>
 
                         <View style={styles.resultsContainer}>
-                            <Text style={styles.resultsHeadingText}>Results</Text>
+                            <Text style={styles.resultsHeadingText}>STORES</Text>
                         </View>
                         <View style={styles.resultsDetailsContainer}>
                             <Image
@@ -133,11 +142,11 @@ class Third extends Component {
                                 source={require('./resources/icons/location.png')}
                                 />
                             <Text style={styles.resultsDetailsText}>Causeway Point
-                            1, Woodlands Square
-                            #03-01 Causeway Point
-                            Singapore 738099
-                            Nearest MRT Station:
-                            Woodlands (NS9)</Text></View>
+                                1, Woodlands Square
+                                #03-01 Causeway Point
+                                Singapore 738099
+                                Nearest MRT Station:
+                                Woodlands (NS9) </Text></View>
                         <View style={styles.resultsDetailsContainer}>
                             <Image
                                 style={styles.locationIcon}
@@ -188,14 +197,21 @@ class Third extends Component {
                        isDisabled={this.state.isDisabled}>
                     <View>
                         <View style={styles.modalHeading}><Text style={styles.modalHeadingText}>Type of
-                            Store</Text></View>
-
+                            Store</Text>
+                            <TouchableHighlight underlayColor='rgba(0, 0, 0, 0.1)' style={styles.modalCloseButton} onPress={this.closeModalChangeType.bind(this)}><Text
+                                style={styles.modalHeadingText}>x</Text>
+                            </TouchableHighlight></View>
                     </View>
                 </Modal>
                 <Modal style={styles.openModalChangeLocation} position={"center"} ref={'modalChangeLocation'}
                        isDisabled={this.state.isDisabled}>
                     <View>
-                        <View style={styles.modalHeading}><Text style={styles.modalHeadingText}>Location</Text></View>
+                        <View style={styles.modalHeading}>
+                            <Text style={styles.modalHeadingText}>Location</Text>
+                            <TouchableHighlight underlayColor='rgba(0, 0, 0, 0.1)' style={styles.modalCloseButton} onPress={this.closeModalChangeLocation.bind(this)}><Text
+                                style={styles.modalHeadingText}>x</Text>
+                            </TouchableHighlight>
+                        </View>
 
                     </View>
                 </Modal>
@@ -209,7 +225,7 @@ class Third extends Component {
 const styles = StyleSheet.create({
 
     background: {
-        backgroundColor: '#3f4952',
+        backgroundColor: '#EEEFEA',
         paddingTop: 20,
         height: Dimensions.get('window').height,
     },
@@ -235,7 +251,7 @@ const styles = StyleSheet.create({
         color: '#fff',
     },
     container: {
-        backgroundColor: '#d4d5d7',
+        backgroundColor: '#EEEFEA',
         flexDirection: 'column',
         height: Dimensions.get('window').height / 100 * 90,
         width: Dimensions.get('window').width,
@@ -252,10 +268,11 @@ const styles = StyleSheet.create({
     },
     typeHeadingText: {
         marginLeft: 20,
-        marginTop: 11,
-        fontSize: 12,
+        marginTop: 12,
+        fontSize: 10,
         textAlign: 'left',
-        color: '#93999d',
+        color: '#A7A8A3',
+        fontWeight: 'bold',
     },
     typePlaceholderContainer: {
         width: Dimensions.get('window').width,
@@ -263,7 +280,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fbfbfb',
         borderTopWidth: 1,
         borderBottomWidth: 1,
-        borderColor: '#bfbdbc',
+        borderColor: '#DCDCDA',
         flexDirection: 'row',
     },
     typePlaceholderText: {
@@ -280,10 +297,11 @@ const styles = StyleSheet.create({
     },
     locationHeadingText: {
         marginLeft: 20,
-        marginTop: 11,
-        fontSize: 12,
+        marginTop: 12,
+        fontSize: 10,
         textAlign: 'left',
-        color: '#93999d',
+        color: '#A7A8A3',
+        fontWeight: 'bold',
     },
     locationPlaceholderContainer: {
         width: Dimensions.get('window').width,
@@ -291,7 +309,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fbfbfb',
         borderTopWidth: 1,
         borderBottomWidth: 1,
-        borderColor: '#bfbdbc',
+        borderColor: '#DCDCDA',
         flexDirection: 'row',
     },
     locationPlaceholderText: {
@@ -309,7 +327,7 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
         justifyContent: 'flex-end',
         /*borderBottomWidth: 1,
-        borderColor: '#656d73'*/
+         borderColor: '#656d73'*/
     },
     changeLocationButton: {
         width: 41,
@@ -334,28 +352,29 @@ const styles = StyleSheet.create({
     },
     resultsContainer: {
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 100 * 7,
+        height: 30
     },
     resultsHeadingText: {
         marginLeft: 20,
-        marginTop: 25,
-        fontSize: 12,
+        marginTop: 12,
+        fontSize: 10,
         textAlign: 'left',
-        color: '#93999d',
+        color: '#A7A8A3',
+        fontWeight: 'bold',
     },
     resultsDetailsContainer: {
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 100 * 12,
         backgroundColor: '#fbfbfb',
         borderTopWidth: 1,
-        borderBottomWidth: 1,
-        borderColor: '#bfbdbc',
+        borderTopWidth: 1,
+        borderColor: '#DCDCDA',
         flexDirection: 'row',
     },
     resultsDetailsText: {
         width: Dimensions.get('window').width / 100 * 85,
         marginLeft: 10,
         marginTop: 15,
+        marginBottom: 15,
         fontSize: 14,
         textAlign: 'left',
         color: '#898989',
@@ -371,9 +390,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#fbfbfb',
     },
     modalHeading: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         width: Dimensions.get('window').width / 100 * 70,
         height: Dimensions.get('window').height / 100 * 10,
         backgroundColor: '#f37124',
+    },
+    modalCloseButton: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: Dimensions.get('window').height / 100 * 10,
+        height: Dimensions.get('window').height / 100 * 10,
     },
     triangle: {
         width: 0,
@@ -393,9 +420,11 @@ const styles = StyleSheet.create({
     },
     modalHeadingText: {
         marginTop: 20,
-        fontSize: 18,
+        fontSize: 20,
         textAlign: 'center',
-        color: '#fff',    }
+        color: '#fff',
+        paddingLeft: 50,
+    }
 });
 
 module.exports = Third;
