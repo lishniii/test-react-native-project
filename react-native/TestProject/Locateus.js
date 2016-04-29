@@ -23,7 +23,7 @@ var _navigator;
 var type = ['M1 Store', 'Apple', 'Samsung'];
 var location = ['All regions', 'Central', 'North', 'South', 'West', 'East'];
 
-class Third extends Component {
+class Locateus extends Component {
     constructor(props, context) {
         super(props, context);
         var typeDataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -104,21 +104,33 @@ class Third extends Component {
         this.setState({swipeToClose: !this.state.swipeToClose})
     }
 
-    navSecond() {
+    navTopUp() {
         this.props.navigator.push({
-            id: 'second'
+            id: 'topup'
         })
     }
 
-    navThird() {
+    navLocateUs() {
         this.props.navigator.push({
-            id: 'third'
+            id: 'locateus'
         })
     }
 
-    navFourth() {
+    navBalance() {
         this.props.navigator.push({
-            id: 'fourth'
+            id: 'balance'
+        })
+    }
+
+    navPromotions() {
+        this.props.navigator.push({
+            id: 'promotions'
+        })
+    }
+
+    navSettings() {
+        this.props.navigator.push({
+            id: 'settings'
         })
     }
 
@@ -128,21 +140,64 @@ class Third extends Component {
 
     render() {
         var navigationView = (
-            <View style={{flex: 1, backgroundColor: '#fff'}}>
-                <TouchableHighlight onPress={this.navSecond.bind(this)}><Text
-                    style={{margin: 10, fontSize: 15, textAlign: 'left'}}>Second</Text>
+            <View style={styles.navigationDrawer}>
+                <View style={styles.drawerLogoContainer}><Image
+                    style={styles.drawerLogoContainer}
+                    source={require('./resources/images/drawerbackground.jpg')}
+                    ><Image
+                    style={styles.drawerLogoImage}
+                    source={require('./resources/images/logo.png')}
+                    /></Image></View>
+                <TouchableHighlight style={styles.navigatorItem} onPress={this.navBalance.bind(this)}>
+                    <View style={styles.navigatorItem}>
+                        <Image
+                            style={styles.navigatorIcon}
+                            source={require('./resources/images/drawerbackground.jpg')}
+                            />
+                        <Text
+                            style={styles.navigatorText}>Balance</Text></View>
                 </TouchableHighlight>
-                <TouchableHighlight onPress={this.navThird.bind(this)}><Text
-                    style={{margin: 10, fontSize: 15, textAlign: 'left'}}>Third</Text>
+                <TouchableHighlight style={styles.navigatorItem} onPress={this.navTopUp.bind(this)}>
+                    <View style={styles.navigatorItem}>
+                        <Image
+                            style={styles.navigatorIcon}
+                            source={require('./resources/images/drawerbackground.jpg')}
+                            />
+                        <Text
+                            style={styles.navigatorText}>Top-Up</Text></View>
                 </TouchableHighlight>
-                <TouchableHighlight onPress={this.navFourth.bind(this)}><Text
-                    style={{margin: 10, fontSize: 15, textAlign: 'left'}}>Fourth</Text>
+                <TouchableHighlight style={styles.navigatorItem} onPress={this.navPromotions.bind(this)}>
+                    <View style={styles.navigatorItem}>
+                        <Image
+                            style={styles.navigatorIcon}
+                            source={require('./resources/images/drawerbackground.jpg')}
+                            />
+                        <Text
+                            style={styles.navigatorText}>Promotions</Text></View>
+                </TouchableHighlight>
+                <TouchableHighlight style={styles.navigatorItem} onPress={this.navLocateUs.bind(this)}>
+                    <View style={styles.navigatorItem}>
+                        <Image
+                            style={styles.navigatorIcon}
+                            source={require('./resources/images/drawerbackground.jpg')}
+                            />
+                        <Text
+                            style={styles.navigatorText}>Locate Us</Text></View>
+                </TouchableHighlight>
+                <TouchableHighlight style={styles.navigatorItem} onPress={this.navSettings.bind(this)}>
+                    <View style={styles.navigatorItem}>
+                        <Image
+                            style={styles.navigatorIcon}
+                            source={require('./resources/images/drawerbackground.jpg')}
+                            />
+                        <Text
+                            style={styles.navigatorText}>Settings</Text></View>
                 </TouchableHighlight>
             </View>
         );
         return (
             <DrawerLayoutAndroid
-                drawerWidth={300}
+                drawerWidth={240}
                 ref={'DRAWER'}
                 drawerPosition={DrawerLayoutAndroid.positions.Left}
                 renderNavigationView={() => navigationView}>
@@ -156,32 +211,33 @@ class Third extends Component {
                                 />
                         </TouchableHighlight>
                     </View>
-                    <Text style={styles.heading}>Locate us</Text>
+                    <Text style={styles.heading}>Locate Us</Text>
                 </View>
-                <View style={styles.container}>
+                <View style={styles.locateUsContainer}>
                     <View style={styles.mapContainer}><Image
                         source={require('./resources/images/map.png')}
                         /></View>
                     <ScrollView>
                         <View style={styles.typeContainer}><Text style={styles.typeHeadingText}>TYPE OF
                             STORE</Text></View>
-                        <View style={styles.typePlaceholderContainer}><Text
-                            style={styles.typePlaceholderText}>{this.state.selectedType}</Text><TouchableHighlight
-                            style={styles.changeTypeButton}
-                            onPress={this.openModalChangeType.bind(this)}><Image
-                            style={{width: 15, height: 15,}}
-                            source={require('./resources/icons/arrow.png')}
-                            />
-                        </TouchableHighlight></View>
+
+                        <TouchableHighlight style={styles.changeTypeButton} onPress={this.openModalChangeType.bind(this)} underlayColor='rgba(0, 0, 0, 0.1)'>
+                            <View style={styles.typePlaceholderContainer}>
+                                <Text style={styles.typePlaceholderText}>{this.state.selectedType}</Text>
+                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
+                            </View>
+                        </TouchableHighlight>
+
                         <View style={styles.locationContainer}><Text
-                            style={styles.locationHeadingText}>AREA</Text></View>
-                        <View style={styles.locationPlaceholderContainer}><Text
-                            style={styles.locationPlaceholderText}>{this.state.selectedLocation}</Text><TouchableHighlight
-                            style={styles.changeLocationButton} onPress={this.openModalChangeLocation.bind(this)}><Image
-                            style={{width: 15, height: 15,}}
-                            source={require('./resources/icons/arrow.png')}
-                            />
-                        </TouchableHighlight></View>
+                            style={styles.locationHeadingText}>AREA</Text>
+                        </View>
+
+                        <TouchableHighlight style={styles.changeLocationButton} onPress={this.openModalChangeLocation.bind(this)} underlayColor='rgba(0, 0, 0, 0.1)'>
+                            <View style={styles.locationPlaceholderContainer}>
+                                <Text style={styles.locationPlaceholderText}>{this.state.selectedLocation}</Text>
+                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
+                            </View>
+                        </TouchableHighlight>
 
                         <View style={styles.resultsContainer}>
                             <Text style={styles.resultsHeadingText}>STORES</Text>
@@ -270,11 +326,6 @@ class Third extends Component {
 
 const styles = StyleSheet.create({
 
-    background: {
-        backgroundColor: '#EEEFEA',
-        paddingTop: 20,
-        height: Dimensions.get('window').height,
-    },
     toolBar: {
         backgroundColor: '#f37124',
         flexDirection: 'row',
@@ -296,7 +347,40 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         color: '#fff',
     },
-    container: {
+    navigationDrawer: {
+        flex: 1,
+        backgroundColor: '#23140D'
+    },
+    drawerLogoContainer: {
+        width: 240,
+        height: 170,
+    },
+    drawerLogoImage: {
+        width: 130,
+        height: 130,
+        alignSelf: 'center',
+        marginTop: 22
+    },
+    navigatorItem: {
+        width: 130,
+        height: 50,
+        flexDirection: 'row',
+        paddingLeft: 15
+    },
+    navigatorIcon: {
+        width: 10,
+        height: 15,
+        alignSelf: 'center',
+        marginTop: 5
+    },
+    navigatorText: {
+        width: 50,
+        height: 15,
+        alignSelf: 'center',
+        color: '#fff',
+        marginLeft: 15
+    },
+    locateUsContainer: {
         backgroundColor: '#EEEFEA',
         flexDirection: 'column',
         height: Dimensions.get('window').height / 100 * 90,
@@ -322,11 +406,7 @@ const styles = StyleSheet.create({
     },
     typePlaceholderContainer: {
         width: Dimensions.get('window').width,
-        height: 50,
-        backgroundColor: '#fbfbfb',
-        borderTopWidth: 1,
-        borderBottomWidth: 1,
-        borderColor: '#DCDCDA',
+        height: Dimensions.get('window').height / 100 * 8,
         flexDirection: 'row',
     },
     typePlaceholderText: {
@@ -352,10 +432,6 @@ const styles = StyleSheet.create({
     locationPlaceholderContainer: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height / 100 * 8,
-        backgroundColor: '#fbfbfb',
-        borderTopWidth: 1,
-        borderBottomWidth: 1,
-        borderColor: '#DCDCDA',
         flexDirection: 'row',
     },
     locationPlaceholderText: {
@@ -367,17 +443,26 @@ const styles = StyleSheet.create({
         color: '#898989',
     },
     changeTypeButton: {
-        width: 41,
-        height: 20,
-        marginBottom: 16,
-        alignSelf: 'flex-end',
-        justifyContent: 'flex-end',
-        /*borderBottomWidth: 1,
-         borderColor: '#656d73'*/
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height / 100 * 8,
+        backgroundColor: '#fbfbfb',
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderColor: '#DCDCDA',
+        flexDirection: 'row',
     },
     changeLocationButton: {
-        width: 41,
-        height: 20,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height / 100 * 8,
+        backgroundColor: '#fbfbfb',
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderColor: '#DCDCDA',
+        flexDirection: 'row',
+    },
+    arrowImage: {
+        width: 15,
+        height: 15,
         marginBottom: 16,
         alignSelf: 'flex-end',
         justifyContent: 'flex-end',
@@ -418,7 +503,6 @@ const styles = StyleSheet.create({
     resultsDetailsContainer: {
         width: Dimensions.get('window').width,
         backgroundColor: '#fbfbfb',
-        borderTopWidth: 1,
         borderTopWidth: 1,
         borderColor: '#DCDCDA',
         flexDirection: 'row',
@@ -465,14 +549,14 @@ const styles = StyleSheet.create({
     },
     openModalChangeLocation: {
         width: Dimensions.get('window').width / 100 * 70,
-        height: Dimensions.get('window').height / 100 * 47,
+        height: Dimensions.get('window').height / 100 * 45,
         backgroundColor: '#fbfbfb',
     },
     modalHeading: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: Dimensions.get('window').width / 100 * 70,
-        height: Dimensions.get('window').height / 100 * 10,
+        height: Dimensions.get('window').height / 100 * 8,
         backgroundColor: '#f37124',
     },
     modalCloseButton: {
@@ -482,8 +566,8 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height / 100 * 10,
     },
     modalHeadingText: {
-        marginTop: 20,
-        fontSize: 20,
+        marginTop: 16,
+        fontSize: 16,
         textAlign: 'center',
         color: '#fff',
         paddingLeft: 50,
@@ -508,7 +592,7 @@ const styles = StyleSheet.create({
     }
 });
 
-module.exports = Third;
+module.exports = Locateus;
 /**
  * Created by lishni on 4/4/16.
  */

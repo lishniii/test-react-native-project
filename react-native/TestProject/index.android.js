@@ -14,17 +14,19 @@ import React, {
     Text
 } from 'react-native';
 
-var First = require('./First');
-var Second = require('./Second');
-var Third = require('./Third');
-var Fourth = require('./Fourth');
+var Login = require('./Login');
+var Topup = require('./Topup');
+var Locateus = require('./Locateus');
+var Balance = require('./Balance');
+var Promotions = require('./Promotions');
+var Settings = require('./Settings');
 
 
 class TestProject extends React.Component {
     render() {
         return (
             <Navigator
-                initialRoute={{id: 'third'}}
+                initialRoute={{id: 'login'}}
                 renderScene={this.navigatorRenderScene}/>
         );
     }
@@ -32,14 +34,18 @@ class TestProject extends React.Component {
     navigatorRenderScene(route, navigator) {
         _navigator = navigator;
         switch (route.id) {
-            case 'first':
-                return (<First navigator={navigator} title="first"/>);
-            case 'second':
-                return (<Second navigator={navigator} title="second"/>);
-            case 'third':
-                return (<Third navigator={navigator} title="third"/>);
-            case 'fourth':
-                return (<Fourth navigator={navigator} title="fourth"/>);
+            case 'login':
+                return (<Login navigator={navigator} title="login"/>);
+            case 'topup':
+                return (<Topup navigator={navigator} title="topup"/>);
+            case 'locateus':
+                return (<Locateus navigator={navigator} title="locateus"/>);
+            case 'balance':
+                return (<Balance navigator={navigator} title="balance"/>);
+            case 'promotions':
+                return (<Promotions navigator={navigator} title="promotions"/>);
+            case 'settings':
+                return (<Settings navigator={navigator} title="settings"/>);
         }
     }
 }

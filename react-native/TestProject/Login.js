@@ -17,22 +17,22 @@ import React, {
 
 var _navigator; // we fill this up upon on first navigation.
 
-class First extends Component {
-    navSecond() {
+class Login extends Component {
+    navTopUp() {
         this.props.navigator.push({
-            id: 'second'
+            id: 'topup'
         })
     }
-
     render() {
         return (
             <View>
                 <View style={styles.background}>
+                    <Image
+                        style={styles.backdrop}
+                        source={require('./resources/images/background.jpg')}>
+                        <View style={styles.backdropView}>
                     <View style={styles.container}>
-                        <Image
-                            style={styles.backdrop}
-                            source={require('./resources/images/background.jpg')}>
-                            <View style={styles.backdropView}>
+
                                 <Image
                                     style={styles.logo}
                                     source={require('./resources/images/logo.png')}
@@ -51,7 +51,7 @@ class First extends Component {
                                         style={styles.textArea}
                                         placeholder="+65"
                                         />
-                                    <TouchableHighlight style={styles.button} onPress={this.navSecond.bind(this)}>
+                                    <TouchableHighlight style={styles.button} onPress={this.navTopUp.bind(this)}>
                                         <Text style={styles.buttonText}>Login</Text>
                                     </TouchableHighlight>
                                 </View>
@@ -60,10 +60,11 @@ class First extends Component {
                                     <Text style={styles.footerText}>Copyright &copy; 2016 M1 Prepaid Portal. All Rights Reserved.</Text>
                                 </View>
                             </View>
+                        </View>
                         </Image>
 
 
-                    </View>
+
 
                 </View>
 
@@ -92,11 +93,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,.6)'
     },
     container: {
-        margin: 50,
+        marginTop: 50,
         flexDirection: 'column',
         height: Dimensions.get('window').height / 100 * 80,
         justifyContent: 'center',
         alignItems: 'center',
+        alignSelf: 'center'
     },
     footerTextContainer: {
         width: 300,
@@ -192,4 +194,4 @@ const styles = StyleSheet.create({
     }
 });
 
-module.exports = First;
+module.exports = Login;
