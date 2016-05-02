@@ -152,7 +152,8 @@ class Topup extends Component {
                             <View style={styles.topUpPlaceholderContainer}>
                                 <Image style={styles.topUpPlaceholderImage}
                                        source={require('./resources/images/28topupcard.png')}/>
-                                <Text style={styles.topUpBonusPlaceholderText}></Text>
+                                <Text style={styles.topUpBonusPlaceholderText}>&middot; Bundled Local Data 350 MB{'\n'}&middot; $18 local outgoing calls +
+                                    500 SMS{'\n'}&middot; valid for 30 days</Text>
                                 <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
                             </View>
                         </TouchableHighlight>
@@ -162,7 +163,8 @@ class Topup extends Component {
                             <View style={styles.topUpPlaceholderContainer}>
                                 <Image style={styles.topUpPlaceholderImage}
                                        source={require('./resources/images/30topupcard.png')}/>
-                                <Text style={styles.topUpBonusPlaceholderText}></Text>
+                                <Text style={styles.topUpBonusPlaceholderText}>&middot; Bundled Local Data 350 MB{'\n'}&middot; $18 local outgoing calls +
+                                    500 SMS{'\n'}&middot; valid for 30 days</Text>
                                 <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
                             </View>
                         </TouchableHighlight>
