@@ -128,6 +128,7 @@ class Balance extends Component {
         const idd = this.state.iddPoints / MAX_POINTS * 100;
         const data = this.state.dataPoints / MAX_POINTS * 100;
         const sms = this.state.smsPoints / MAX_POINTS * 100;
+        const balanceChartSize = Dimensions.get('window').height / 100 * 15;
 
         return (
             <DrawerLayoutAndroid
@@ -147,22 +148,18 @@ class Balance extends Component {
                     </View>
                     <Text style={styles.heading}>Balance</Text>
                 </View>
-                <View style={styles.topUpContainer}>
-                   <Image
-                        style={styles.bannerContainer}
-                        source={require('./resources/images/drawerbackground.jpg')}>
-                   </Image>
-
+                <View style={styles.accountBalanceContainer}>
+                    <View style={styles.bannerContainer}><Text style={styles.heading}>Balance</Text></View>
 
                         <View style={styles.balanceContainer}>
 
                                 <AnimatedCircularProgress
                                     rotation={0}
-                                    size={85}
+                                    size={90}
                                     width={14}
                                     fill={idd}
                                     tintColor="#e67e22"
-                                    backgroundColor="#CCC">
+                                    backgroundColor="#e7e7e7">
                                     {
                                         (fill) => (
                                             <Text style={styles.points}>IDD {'\n'}
@@ -178,11 +175,11 @@ class Balance extends Component {
 
                         <AnimatedCircularProgress
                             rotation={0}
-                            size={85}
+                            size={90}
                             width={14}
                             fill={data}
                             tintColor="#e67e22"
-                            backgroundColor="#CCC">
+                            backgroundColor="#e7e7e7">
                             {
                                 (fill) => (
                                     <Text style={styles.points}>DATA {'\n'}
@@ -198,11 +195,11 @@ class Balance extends Component {
 
                         <AnimatedCircularProgress
                             rotation={0}
-                            size={85}
+                            size={90}
                             width={14}
                             fill={sms}
                             tintColor="#e67e22"
-                            backgroundColor="#CCC">
+                            backgroundColor="#e7e7e7">
                             {
                                 (fill) => (
                                     <Text style={styles.points}>FREE {'\n'}
@@ -243,7 +240,7 @@ const styles = StyleSheet.create({
     },
     navigationDrawer: {
         flex: 1,
-        backgroundColor: '#23140D'
+        backgroundColor: '#292727'
     },
     drawerLogoContainer: {
         width: 240,
@@ -281,7 +278,7 @@ const styles = StyleSheet.create({
         height: 150,
         margin: 20
     },
-    topUpContainer: {
+    accountBalanceContainer: {
         backgroundColor: '#EEEFEA',
         flexDirection: 'column',
         height: Dimensions.get('window').height / 100 * 90,
@@ -291,20 +288,7 @@ const styles = StyleSheet.create({
     bannerContainer: {
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height / 100 * 30,
-        backgroundColor: '#ffdd20'
-    },
-    instructionsContainer: {
-        width: Dimensions.get('window').width,
-
-    },
-    instructionsText: {
-        marginLeft: 20,
-        marginRight: 20,
-        marginTop: 12,
-        marginBottom: 12,
-        fontSize: 14,
-        textAlign: 'left',
-        color: '#A7A8A3',
+        backgroundColor: '#EEEFEA'
     },
     BalanceText: {
         width: 200,
@@ -314,30 +298,22 @@ const styles = StyleSheet.create({
         color: '#898989',
         fontWeight: 'bold'
     },
-    topUpBonusPlaceholderText: {
-        width: Dimensions.get('window').width / 100 * 45,
-
-        fontSize: 11,
-        textAlign: 'center',
-        color: '#898989',
-    },
     balanceContainer: {
         width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height / 100 * 20,
         backgroundColor: '#fbfbfb',
         borderTopWidth: 1,
         borderColor: '#DCDCDA',
         flexDirection: 'row',
-        paddingTop: 15,
-        paddingLeft: 10,
-        paddingBottom: 15,
+        paddingTop: 10,
+        paddingLeft: 20,
+        paddingBottom: 10,
+        alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center'
     },
-    typeChangeButtonText: {
-        fontSize: 12,
-        color: '#656d73',
-    },
-  /*  IDDChart: {
+
+  /*  chart: {
         rotation: 0,
         size: 85,
         width: 14,
@@ -349,8 +325,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         position: 'absolute',
         width: 45,
-        top: 25,
-        left: 20,
+        top: 27,
+        left: 22,
         textAlign: 'center',
         color: '#999',
         fontSize: 12,
