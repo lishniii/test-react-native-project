@@ -201,7 +201,7 @@ class Topup extends Component {
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
+                            source={require('./resources/icons/dollar.png')}
                             />
                         <Text
                             style={styles.navigatorText}>Balance</Text></View>
@@ -210,7 +210,7 @@ class Topup extends Component {
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
+                            source={require('./resources/icons/topupaccount.png')}
                             />
                         <Text
                             style={styles.navigatorText}>Top-Up</Text></View>
@@ -219,7 +219,7 @@ class Topup extends Component {
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
+                            source={require('./resources/icons/pricetag.png')}
                             />
                         <Text
                             style={styles.navigatorText}>Promotions</Text></View>
@@ -228,7 +228,7 @@ class Topup extends Component {
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
+                            source={require('./resources/icons/pin.png')}
                             />
                         <Text
                             style={styles.navigatorText}>Locate Us</Text></View>
@@ -237,7 +237,7 @@ class Topup extends Component {
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
+                            source={require('./resources/icons/settings.png')}
                             />
                         <Text
                             style={styles.navigatorText}>Settings</Text></View>
@@ -320,23 +320,24 @@ const styles = StyleSheet.create({
         marginTop: 22
     },
     navigatorItem: {
-        width: 130,
+        width: 240,
         height: 50,
         flexDirection: 'row',
         paddingLeft: 15
     },
     navigatorIcon: {
-        width: 10,
-        height: 15,
+        width: 18,
+        height: 18,
         alignSelf: 'center',
         marginTop: 5
     },
     navigatorText: {
         width: 100,
-        height: 15,
+        height: 20,
         alignSelf: 'center',
         color: '#fff',
-        marginLeft: 15
+        marginLeft: 15,
+        marginTop: 5
     },
     accountTab: {
         backgroundColor: '#EEEFEA',

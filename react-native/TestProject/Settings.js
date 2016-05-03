@@ -1,6 +1,5 @@
-/**
- * Created by lishni on 4/4/16.
- */
+
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import React, {
     AppRegistry,
     StyleSheet,
@@ -15,356 +14,126 @@ import React, {
     Image,
     DrawerLayoutAndroid,
     ScrollView,
-    ListView
+    ListView,
+    PanResponder
 } from 'react-native';
 
 
-var _navigator; // we fill this up upon on first navigation.
+const MAX_POINTS = 500;
 
 class Settings extends Component {
 
-    navTopUp() {
-        this.props.navigator.push({
-            id: 'topup'
-        })
+    constructor() {
+        super();
+        this.state = {
+            isMoving: false,
+            pointsDelta: 0,
+            points: 325
+        };
     }
 
-    navLocateUs() {
-        this.props.navigator.push({
-            id: 'locateus'
-        })
-    }
+    componentWillMount() {
+        console.log('WILL MOUNT');
 
-    navBalance() {
-        this.props.navigator.push({
-            id: 'balance'
-        })
-    }
+        this._panResponder = PanResponder.create({
+            onStartShouldSetPanResponder: (evt, gestureState) => true,
+            onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+            onMoveShouldSetPanResponder: (evt, gestureState) => true,
+            onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
 
-    navPromotions() {
-        this.props.navigator.push({
-            id: 'promotions'
-        })
-    }
+            onPanResponderGrant: (evt, gestureState) => {
+                this.setState({ isMoving: true, pointsDelta: 0 });
+            },
 
-    navSettings() {
-        this.props.navigator.push({
-            id: 'settings'
-        })
-    }
-
-    openDrawer() {
-        this.refs['DRAWER'].openDrawer()
+            onPanResponderMove: (evt, gestureState) => {
+                // For each 2 pixels add or subtract 1 point
+                this.setState({ pointsDelta: Math.round(-gestureState.dy / 2) });
+            },
+            onPanResponderTerminationRequest: (evt, gestureState) => true,
+            onPanResponderRelease: (evt, gestureState) => {
+                let points = this.state.points + this.state.pointsDelta;
+                console.log(Math.min(points, MAX_POINTS));
+                this.setState({
+                    isMoving: false,
+                    points: points > 0 ? Math.min(points, MAX_POINTS) : 0,
+                    pointsDelta: 0
+                });
+            },
+        });
     }
 
     render() {
-        var navigationView = (
-            <View style={styles.navigationDrawer}>
-                <View style={styles.drawerLogoContainer}><Image
-                    style={styles.drawerLogoContainer}
-                    source={require('./resources/images/drawerbackground.jpg')}
-                    ><Image
-                    style={styles.drawerLogoImage}
-                    source={require('./resources/images/logo.png')}
-                    /></Image></View>
-                <TouchableHighlight style={styles.navigatorItem} onPress={this.navBalance.bind(this)}>
-                    <View style={styles.navigatorItem}>
-                        <Image
-                            style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
-                            />
-                        <Text
-                            style={styles.navigatorText}>Balance</Text></View>
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.navigatorItem} onPress={this.navTopUp.bind(this)}>
-                    <View style={styles.navigatorItem}>
-                        <Image
-                            style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
-                            />
-                        <Text
-                            style={styles.navigatorText}>Top-Up</Text></View>
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.navigatorItem} onPress={this.navPromotions.bind(this)}>
-                    <View style={styles.navigatorItem}>
-                        <Image
-                            style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
-                            />
-                        <Text
-                            style={styles.navigatorText}>Promotions</Text></View>
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.navigatorItem} onPress={this.navLocateUs.bind(this)}>
-                    <View style={styles.navigatorItem}>
-                        <Image
-                            style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
-                            />
-                        <Text
-                            style={styles.navigatorText}>Locate Us</Text></View>
-                </TouchableHighlight>
-                <TouchableHighlight style={styles.navigatorItem} onPress={this.navSettings.bind(this)}>
-                    <View style={styles.navigatorItem}>
-                        <Image
-                            style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
-                            />
-                        <Text
-                            style={styles.navigatorText}>Settings</Text></View>
-                </TouchableHighlight>
-            </View>
-        );
+        const fill = this.state.points / MAX_POINTS * 100;
+
         return (
-            <DrawerLayoutAndroid
-                drawerWidth={240}
-                ref={'DRAWER'}
-                drawerPosition={DrawerLayoutAndroid.positions.Left}
-                renderNavigationView={() => navigationView}>
+            <View
+                style={styles.container}
+                {...this._panResponder.panHandlers}>
+                <AnimatedCircularProgress
+                    size={200}
+                    width={3}
+                    fill={fill}
+                    tintColor="#00e0ff"
+                    backgroundColor="#3d5875">
+                    {
+                        (fill) => (
+                            <Text style={styles.points}>
+                                { Math.round(MAX_POINTS * fill / 100) }
+                            </Text>
+                        )
+                    }
+                </AnimatedCircularProgress>
 
-                <View style={styles.toolBar}>
-                    <View style={styles.toolBarItemContainer}>
-                        <TouchableHighlight onPress={this.openDrawer.bind(this)}>
-                            <Image
-                                style={{width: 25, height: 25,}}
-                                source={require('./resources/icons/menu.png')}
-                                />
-                        </TouchableHighlight>
-                    </View>
-                    <Text style={styles.heading}>Top Up</Text>
-                </View>
-                <View style={styles.topUpContainer}>
-                    <View style={styles.bannerContainer}><Image
-                        style={styles.banner}
-                        source={require('./resources/images/logo.png')}
-                        /></View>
-                    <View style={styles.instructionsContainer}><Text style={styles.instructionsText}>Simply follow the
-                        below steps to Top-Up your card</Text></View>
-                    <ScrollView>
-                        <TouchableHighlight style={styles.topUpButton}
+                <AnimatedCircularProgress
+                    size={120}
+                    width={15}
+                    fill={fill}
+                    tintColor="#00e0ff"
+                    backgroundColor="#3d5875" />
 
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 10</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 0.50)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
+                <AnimatedCircularProgress
+                    size={100}
+                    width={25}
+                    fill={fill}
+                    tintColor="#00e0ff"
+                    backgroundColor="#3d5875" />
 
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 15</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}></Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 17</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 2.50)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 18</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}></Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 23</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 3)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 28</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}></Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 30</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 5)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 48</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 12)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 88</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 22)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-                    </ScrollView>
-                </View>
-            </DrawerLayoutAndroid>
-        );
+                <Text style={[styles.pointsDelta, this.state.isMoving && styles.pointsDeltaActive]}>
+                    { this.state.pointsDelta >= 0 && '+' }
+                    { this.state.pointsDelta }
+                </Text>
+            </View>
+        )
     }
 }
 
 const styles = StyleSheet.create({
-    toolBar: {
-        backgroundColor: '#f37124',
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        paddingTop: 20,
-        paddingLeft: 20,
-        height: Dimensions.get('window').height / 100 * 10,
-        width: Dimensions.get('window').width
+    points: {
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        top: 72,
+        left: 56,
+        width: 90,
+        textAlign: 'center',
+        color: '#7591af',
+        fontSize: 50,
+        fontWeight: "100"
     },
-    toolBarItemContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    heading: {
-        marginLeft: 20,
-        fontSize: 19,
-        fontFamily: 'sans-serif',
-        textAlign: 'left',
-        color: '#fff',
-    },
-    navigationDrawer: {
+    container: {
         flex: 1,
-        backgroundColor: '#23140D'
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: '#152d44',
+        padding: 50
     },
-    drawerLogoContainer: {
-        width: 240,
-        height: 170,
+    pointsDelta: {
+        color: '#4c6479',
+        fontSize: 50,
+        fontWeight: "100"
     },
-    drawerLogoImage: {
-        width: 130,
-        height: 130,
-        alignSelf: 'center',
-        marginTop: 22
-    },
-    navigatorItem: {
-        width: 130,
-        height: 50,
-        flexDirection: 'row',
-        paddingLeft: 15
-    },
-    navigatorIcon: {
-        width: 10,
-        height: 15,
-        alignSelf: 'center',
-        marginTop: 5
-    },
-    navigatorText: {
-        width: 50,
-        height: 15,
-        alignSelf: 'center',
+    pointsDeltaActive: {
         color: '#fff',
-        marginLeft: 15
-    },
-    banner: {
-        alignSelf: 'center',
-        width: 150,
-        height: 150,
-        margin: 20
-    },
-    topUpContainer: {
-        backgroundColor: '#EEEFEA',
-        flexDirection: 'column',
-        height: Dimensions.get('window').height / 100 * 90,
-        width: Dimensions.get('window').width,
-        alignSelf: 'center'
-    },
-    bannerContainer: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 100 * 30,
-        backgroundColor: '#ffdd20'
-    },
-    instructionsContainer: {
-        width: Dimensions.get('window').width,
-
-    },
-    instructionsText: {
-        marginLeft: 20,
-        marginRight: 20,
-        marginTop: 12,
-        marginBottom: 12,
-        fontSize: 14,
-        textAlign: 'left',
-        color: '#A7A8A3',
-    },
-    topUpPlaceholderContainer: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 100 * 8,
-        flexDirection: 'row',
-    },
-    topUpPlaceholderText: {
-        width: Dimensions.get('window').width / 100 * 25,
-        marginLeft: 40,
-        marginTop: 15,
-        fontSize: 14,
-        textAlign: 'left',
-        color: '#898989',
-        fontWeight: 'bold'
-    },
-    topUpBonusPlaceholderText: {
-        width: Dimensions.get('window').width / 100 * 45,
-        marginLeft: 20,
-        marginTop: 18,
-        fontSize: 11,
-        textAlign: 'left',
-        color: '#898989',
-    },
-    topUpButton: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 100 * 8,
-        backgroundColor: '#fbfbfb',
-        borderTopWidth: 1,
-        borderColor: '#DCDCDA',
-        flexDirection: 'row',
-    },
-    arrowImage: {
-        width: 15,
-        height: 15,
-        marginBottom: 16,
-        alignSelf: 'flex-end',
-        justifyContent: 'flex-end',
-    },
-    typeChangeButtonText: {
-        fontSize: 12,
-        color: '#656d73',
-    },
-
-
+    }
 });
 
 module.exports = Settings;

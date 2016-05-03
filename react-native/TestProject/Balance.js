@@ -17,11 +17,21 @@ import React, {
     ScrollView,
     ListView
 } from 'react-native';
-
-
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+const MAX_POINTS = 100;
 var _navigator; // we fill this up upon on first navigation.
 
 class Balance extends Component {
+    constructor() {
+        super();
+        this.state = {
+            isMoving: false,
+            pointsDelta: 10,
+            iddPoints: 50,
+            dataPoints: 85,
+            smsPoints: 20
+        };
+    }
 
     navTopUp() {
         this.props.navigator.push({
@@ -71,7 +81,7 @@ class Balance extends Component {
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
+                            source={require('./resources/icons/dollar.png')}
                             />
                         <Text
                             style={styles.navigatorText}>Balance</Text></View>
@@ -80,7 +90,7 @@ class Balance extends Component {
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
+                            source={require('./resources/icons/topupaccount.png')}
                             />
                         <Text
                             style={styles.navigatorText}>Top-Up</Text></View>
@@ -89,7 +99,7 @@ class Balance extends Component {
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
+                            source={require('./resources/icons/pricetag.png')}
                             />
                         <Text
                             style={styles.navigatorText}>Promotions</Text></View>
@@ -98,7 +108,7 @@ class Balance extends Component {
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
+                            source={require('./resources/icons/pin.png')}
                             />
                         <Text
                             style={styles.navigatorText}>Locate Us</Text></View>
@@ -107,13 +117,18 @@ class Balance extends Component {
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
+                            source={require('./resources/icons/settings.png')}
                             />
                         <Text
                             style={styles.navigatorText}>Settings</Text></View>
                 </TouchableHighlight>
             </View>
         );
+
+        const idd = this.state.iddPoints / MAX_POINTS * 100;
+        const data = this.state.dataPoints / MAX_POINTS * 100;
+        const sms = this.state.smsPoints / MAX_POINTS * 100;
+
         return (
             <DrawerLayoutAndroid
                 drawerWidth={240}
@@ -130,106 +145,74 @@ class Balance extends Component {
                                 />
                         </TouchableHighlight>
                     </View>
-                    <Text style={styles.heading}>Top Up</Text>
+                    <Text style={styles.heading}>Balance</Text>
                 </View>
                 <View style={styles.topUpContainer}>
-                    <View style={styles.bannerContainer}><Image
-                        style={styles.banner}
-                        source={require('./resources/images/logo.png')}
-                        /></View>
-                    <View style={styles.instructionsContainer}><Text style={styles.instructionsText}>Simply follow the
-                        below steps to Top-Up your card</Text></View>
-                    <ScrollView>
-                        <TouchableHighlight style={styles.topUpButton}
+                   <Image
+                        style={styles.bannerContainer}
+                        source={require('./resources/images/drawerbackground.jpg')}>
+                   </Image>
 
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 10</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 0.50)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
 
-                        <TouchableHighlight style={styles.topUpButton}
+                        <View style={styles.balanceContainer}>
 
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 15</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}></Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
+                                <AnimatedCircularProgress
+                                    rotation={0}
+                                    size={85}
+                                    width={14}
+                                    fill={idd}
+                                    tintColor="#e67e22"
+                                    backgroundColor="#CCC">
+                                    {
+                                        (fill) => (
+                                            <Text style={styles.points}>IDD {'\n'}
+                                               { Math.round(MAX_POINTS * fill / 100) } Mins
+                                            </Text>
+                                        )
+                                    }
+                                </AnimatedCircularProgress>
+                                <Text style={styles.BalanceText}>14 Days {'\n'} Remaining </Text>
+                        </View>
 
-                        <TouchableHighlight style={styles.topUpButton}
+                    <View style={styles.balanceContainer}>
 
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 17</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 2.50)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
+                        <AnimatedCircularProgress
+                            rotation={0}
+                            size={85}
+                            width={14}
+                            fill={data}
+                            tintColor="#e67e22"
+                            backgroundColor="#CCC">
+                            {
+                                (fill) => (
+                                    <Text style={styles.points}>DATA {'\n'}
+                                        { Math.round(MAX_POINTS * fill / 100) } MB
+                                    </Text>
+                                )
+                            }
+                        </AnimatedCircularProgress>
+                        <Text style={styles.BalanceText}>2 Days {'\n'} Remaining </Text>
+                    </View>
 
-                        <TouchableHighlight style={styles.topUpButton}
+                    <View style={styles.balanceContainer}>
 
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 18</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}></Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 23</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 3)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 28</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}></Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 30</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 5)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 48</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 12)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 88</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 22)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-                    </ScrollView>
+                        <AnimatedCircularProgress
+                            rotation={0}
+                            size={85}
+                            width={14}
+                            fill={sms}
+                            tintColor="#e67e22"
+                            backgroundColor="#CCC">
+                            {
+                                (fill) => (
+                                    <Text style={styles.points}>FREE {'\n'}
+                                        { Math.round(MAX_POINTS * fill / 100) } SMS
+                                    </Text>
+                                )
+                            }
+                        </AnimatedCircularProgress>
+                        <Text style={styles.BalanceText}>22 Days {'\n'} Remaining </Text>
+                    </View>
                 </View>
             </DrawerLayoutAndroid>
         );
@@ -273,23 +256,24 @@ const styles = StyleSheet.create({
         marginTop: 22
     },
     navigatorItem: {
-        width: 130,
+        width: 240,
         height: 50,
         flexDirection: 'row',
         paddingLeft: 15
     },
     navigatorIcon: {
-        width: 10,
-        height: 15,
+        width: 18,
+        height: 18,
         alignSelf: 'center',
         marginTop: 5
     },
     navigatorText: {
-        width: 50,
-        height: 15,
+        width: 100,
+        height: 20,
         alignSelf: 'center',
         color: '#fff',
-        marginLeft: 15
+        marginLeft: 15,
+        marginTop: 5
     },
     banner: {
         alignSelf: 'center',
@@ -322,48 +306,56 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         color: '#A7A8A3',
     },
-    topUpPlaceholderContainer: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 100 * 8,
-        flexDirection: 'row',
-    },
-    topUpPlaceholderText: {
-        width: Dimensions.get('window').width / 100 * 25,
-        marginLeft: 40,
-        marginTop: 15,
-        fontSize: 14,
-        textAlign: 'left',
+    BalanceText: {
+        width: 200,
+
+        fontSize: 17,
+        textAlign: 'center',
         color: '#898989',
         fontWeight: 'bold'
     },
     topUpBonusPlaceholderText: {
         width: Dimensions.get('window').width / 100 * 45,
-        marginLeft: 20,
-        marginTop: 18,
+
         fontSize: 11,
-        textAlign: 'left',
+        textAlign: 'center',
         color: '#898989',
     },
-    topUpButton: {
+    balanceContainer: {
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 100 * 8,
         backgroundColor: '#fbfbfb',
         borderTopWidth: 1,
         borderColor: '#DCDCDA',
         flexDirection: 'row',
-    },
-    arrowImage: {
-        width: 15,
-        height: 15,
-        marginBottom: 16,
-        alignSelf: 'flex-end',
-        justifyContent: 'flex-end',
+        paddingTop: 15,
+        paddingLeft: 10,
+        paddingBottom: 15,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     typeChangeButtonText: {
         fontSize: 12,
         color: '#656d73',
     },
-
+  /*  IDDChart: {
+        rotation: 0,
+        size: 85,
+        width: 14,
+        fill: 'fill',
+        tintColor: '#e67e22',
+        backgroundColor: '#CCC',
+    },*/
+    points: {
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        width: 45,
+        top: 25,
+        left: 20,
+        textAlign: 'center',
+        color: '#999',
+        fontSize: 12,
+        fontWeight: "400"
+    },
 
 });
 
