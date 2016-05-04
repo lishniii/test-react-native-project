@@ -26,7 +26,7 @@ class TestProject extends React.Component {
     render() {
         return (
             <Navigator
-                initialRoute={{id: 'balance'}}
+                initialRoute={{id: 'login'}}
                 renderScene={this.navigatorRenderScene}/>
         );
     }
