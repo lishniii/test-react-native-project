@@ -19,6 +19,7 @@ import React, {
 } from 'react-native';
 
 var Modal = require('react-native-modalbox');
+var Tabs = require('react-native-tabs');
 var _navigator;
 var type = ['M1 Store', 'Apple', 'Samsung'];
 var location = ['All regions', 'Central', 'North', 'South', 'West', 'East'];
@@ -316,6 +317,24 @@ class Locateus extends Component {
                         </View>
                     </View>
                 </Modal>
+                <Tabs style={styles.navBar}>
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navBalance.bind(this)} underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                        style={styles.navBarIcons}
+                        source={require('./resources/icons/dollar.png')}
+                        /><Text style={styles.navText}>Balance</Text></View></TouchableHighlight>
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navTopUp.bind(this)} underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                        style={styles.navBarIcons}
+                        source={require('./resources/icons/topupaccount.png')}
+                        /><Text style={styles.navText}>Top-Up</Text></View></TouchableHighlight>
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navBalance.bind(this)} underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                        style={styles.navBarIcons}
+                        source={require('./resources/icons/data.png')}
+                        /><Text style={styles.navText}>Data</Text></View></TouchableHighlight>
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navBalance.bind(this)} underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                        style={styles.navBarIcons}
+                        source={require('./resources/icons/addon.png')}
+                        /><Text style={styles.navText}>Add-ons</Text></View></TouchableHighlight>
+                </Tabs>
             </DrawerLayoutAndroid>
 
         );
@@ -604,6 +623,25 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    navBar: {
+        backgroundColor:'#2c2a2a'
+    },
+    navText: {
+        fontSize: 14,
+        textAlign: 'center',
+        color: '#fff',
+    },
+    navBarIcons: {
+        width: 18,
+        height: 18,
+        alignSelf: 'center'
+    },
+    navBarButtons: {
+        padding:12,
+        width: 90,
+        height: 60,
+        flexDirection: 'column',
     }
 });
 

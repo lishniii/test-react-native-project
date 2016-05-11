@@ -18,19 +18,21 @@ import React, {
     ListView
 } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+var Tabs = require('react-native-tabs');
 const MAX_POINTS = 100;
 var _navigator; // we fill this up upon on first navigation.
 
 class Balance extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             isMoving: false,
             pointsDelta: 10,
             iddPoints: 50,
             dataPoints: 85,
             smsPoints: 20,
-            totalBalance: 84
+            totalBalance: 84,
+            page:'second'
         };
     }
 
@@ -69,6 +71,7 @@ class Balance extends Component {
     }
 
     render() {
+        var self = this;
         var navigationView = (
             <View style={styles.navigationDrawer}>
                 <View style={styles.drawerLogoContainer}><Image
@@ -149,6 +152,7 @@ class Balance extends Component {
                     </View>
                     <Text style={styles.heading}>Balance</Text>
                 </View>
+            <ScrollView>
                 <View style={styles.accountBalanceContainer}>
                     <View style={styles.bannerContainer}><Text style={styles.totalBalanceAmountText}>$ 84.50</Text><Text
                         style={styles.totalBalanceExpiaryDateText}>Expiry Date 08/06/2016</Text><Text
@@ -161,8 +165,8 @@ class Balance extends Component {
                             size={90}
                             width={14}
                             fill={idd}
-                            tintColor="#e67e22"
-                            backgroundColor="#e7e7e7">
+                            tintColor="#09a2b2"
+                            backgroundColor="#89cdd4">
                             {
                                 (fill) => (
                                     <Text style={styles.points}>IDD {'\n'}
@@ -182,7 +186,7 @@ class Balance extends Component {
                             width={14}
                             fill={data}
                             tintColor="#e67e22"
-                            backgroundColor="#e7e7e7">
+                            backgroundColor="#f2c1a2">
                             {
                                 (fill) => (
                                     <Text style={styles.points}>DATA {'\n'}
@@ -201,8 +205,8 @@ class Balance extends Component {
                             size={90}
                             width={14}
                             fill={sms}
-                            tintColor="#e67e22"
-                            backgroundColor="#e7e7e7">
+                            tintColor="#09a2b2"
+                            backgroundColor="#89cdd4">
                             {
                                 (fill) => (
                                     <Text style={styles.points}>FREE {'\n'}
@@ -214,6 +218,25 @@ class Balance extends Component {
                         <Text style={styles.BalanceText}>22 Days {'\n'} Remaining </Text>
                     </View>
                 </View>
+            </ScrollView>
+                <Tabs style={styles.navBar}>
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navBalance.bind(this)} underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                        style={styles.navBarIcons}
+                        source={require('./resources/icons/dollar.png')}
+                        /><Text style={styles.navText}>Balance</Text></View></TouchableHighlight>
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navTopUp.bind(this)} underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                        style={styles.navBarIcons}
+                        source={require('./resources/icons/topupaccount.png')}
+                        /><Text style={styles.navText}>Top-Up</Text></View></TouchableHighlight>
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navBalance.bind(this)} underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                        style={styles.navBarIcons}
+                        source={require('./resources/icons/data.png')}
+                        /><Text style={styles.navText}>Data</Text></View></TouchableHighlight>
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navBalance.bind(this)} underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                        style={styles.navBarIcons}
+                        source={require('./resources/icons/addon.png')}
+                        /><Text style={styles.navText}>Add-ons</Text></View></TouchableHighlight>
+                </Tabs>
             </DrawerLayoutAndroid>
         );
     }
@@ -335,7 +358,7 @@ const styles = StyleSheet.create({
     },
     balanceContainer: {
         width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 100 * 20,
+        height: Dimensions.get('window').height / 100 * 18,
         backgroundColor: '#fbfbfb',
         borderTopWidth: 1,
         borderColor: '#DCDCDA',
@@ -367,6 +390,25 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight: "400"
     },
+    navBar: {
+        backgroundColor:'#2c2a2a'
+    },
+    navText: {
+        fontSize: 14,
+        textAlign: 'center',
+        color: '#fff',
+    },
+    navBarIcons: {
+        width: 18,
+        height: 18,
+        alignSelf: 'center'
+    },
+    navBarButtons: {
+        padding:12,
+        width: 90,
+        height: 60,
+        flexDirection: 'column',
+    }
 
 });
 
