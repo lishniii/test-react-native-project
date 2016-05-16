@@ -50,6 +50,12 @@ class Topup extends Component {
         })
     }
 
+    navLogin() {
+        this.props.navigator.push({
+            id: 'login'
+        })
+    }
+
     navLocateUs() {
         this.props.navigator.push({
             id: 'locateus'
@@ -74,14 +80,56 @@ class Topup extends Component {
         })
     }
 
+    navProfile() {
+        this.props.navigator.push({
+            id: 'profile'
+        })
+    }
+
+    navTransactions() {
+        this.props.navigator.push({
+            id: 'transactions'
+        })
+    }
+
+    navData() {
+        this.props.navigator.push({
+            id: 'data'
+        })
+    }
+
+    navAddons() {
+        this.props.navigator.push({
+            id: 'addons'
+        })
+    }
+
     openDrawer() {
         this.refs['DRAWER'].openDrawer()
     }
 
     renderView() {
+        var mainAccount = '#09a2b2';
+        var bonusAccount = '#c9c8c8';
+
+        if (this.state.renderView == 3) {
+            mainAccount = '#c9c8c8';
+            bonusAccount = '#09a2b2';
+        }
+
         if (this.state.renderView == 1) {
             return (
                 <View style={styles.topUpContainer}>
+                    <View style={styles.accountTypeTab}>
+                        <TouchableHighlight style={[styles.mainAccountTypeTab, {backgroundColor: mainAccount}]}
+                                            onPress={this.setRenderState.bind(this, 1)}
+                                            underlayColor='rgba(0, 0, 0, 0.1)'><Text
+                            style={styles.accountTypeTabText}>Main Account</Text></TouchableHighlight>
+                        <TouchableHighlight style={[styles.bonusAccountTypeTab, {backgroundColor: bonusAccount}]}
+                                            onPress={this.setRenderState.bind(this, 3)}
+                                            underlayColor='rgba(0, 0, 0, 0.1)'><Text
+                            style={styles.accountTypeTabText}>Bonus Account</Text></TouchableHighlight>
+                    </View>
                     <ScrollView>
                         <TouchableHighlight style={styles.topUpButton}
 
@@ -111,9 +159,33 @@ class Topup extends Component {
                     </ScrollView>
                 </View>
             )
-        } else {
+        } else if (this.state.renderView == 2) {
             return (
                 <View style={styles.topUpContainer}>
+                    <View style={styles.topUpBackground}>
+                        <Image source={require('./resources/images/cards.png')}/>
+                        <Text style={styles.accountTypeTabDescription}>Already have A Top Up Card?</Text>
+                        <TouchableHighlight style={styles.topUpNowButton}
+                                            onPress={this.setRenderState.bind(this, 1)} underlayColor='rgba(0, 0, 0, 0.1)'>
+                            <Text style={styles.topUpButtonText}>Top Up Now</Text>
+                        </TouchableHighlight>
+                    </View>
+
+                </View>
+            )
+        } else if (this.state.renderView == 3) {
+            return (
+                <View style={styles.topUpContainer}>
+                    <View style={styles.accountTypeTab}>
+                        <TouchableHighlight style={[styles.mainAccountTypeTab, {backgroundColor: mainAccount}]}
+                                            onPress={this.setRenderState.bind(this, 1)} underlayColor='rgba(0, 0, 0, 0.1)'>
+                            <Text
+                            style={styles.accountTypeTabText}>Main Account</Text></TouchableHighlight>
+                        <TouchableHighlight style={[styles.bonusAccountTypeTab, {backgroundColor: bonusAccount}]}
+                                            onPress={this.setRenderState.bind(this, 3)}
+                                            underlayColor='rgba(0, 0, 0, 0.1)'><Text
+                            style={styles.accountTypeTabText}>Bonus Account</Text></TouchableHighlight>
+                    </View>
                     <ScrollView>
                         <TouchableHighlight style={styles.topUpButton}
 
@@ -121,7 +193,8 @@ class Topup extends Component {
                             <View style={styles.topUpPlaceholderContainer}>
                                 <Image style={styles.topUpPlaceholderImage}
                                        source={require('./resources/images/15topupcard.png')}/>
-                                <Text style={styles.topUpBonusPlaceholderText}>&middot; Bundled Local Data 2 GB {'\n'}&middot; $100 of Local calls/SMS{'\n'}&middot; valid for 30 days</Text>
+                                <Text style={styles.topUpBonusPlaceholderText}>&middot; Bundled Local Data 2
+                                    GB {'\n'}&middot; $100 of Local calls/SMS{'\n'}&middot; valid for 30 days</Text>
                                 <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
                             </View>
                         </TouchableHighlight>
@@ -131,7 +204,8 @@ class Topup extends Component {
                             <View style={styles.topUpPlaceholderContainer}>
                                 <Image style={styles.topUpPlaceholderImage}
                                        source={require('./resources/images/17topupcard.png')}/>
-                                <Text style={styles.topUpBonusPlaceholderText}>&middot; Bundled Local Data 350 MB{'\n'}&middot; $18 local outgoing calls +
+                                <Text style={styles.topUpBonusPlaceholderText}>&middot; Bundled Local Data 350
+                                    MB{'\n'}&middot; $18 local outgoing calls +
                                     500 SMS{'\n'}&middot; valid for 30 days</Text>
                                 <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
                             </View>
@@ -143,7 +217,8 @@ class Topup extends Component {
                             <View style={styles.topUpPlaceholderContainer}>
                                 <Image style={styles.topUpPlaceholderImage}
                                        source={require('./resources/images/23topupcard.png')}/>
-                                <Text style={styles.topUpBonusPlaceholderText}>&middot; Bundled Local Data 2 GB {'\n'}&middot; $100 of Local calls/SMS{'\n'}&middot; valid for 30 days</Text>
+                                <Text style={styles.topUpBonusPlaceholderText}>&middot; Bundled Local Data 2
+                                    GB {'\n'}&middot; $100 of Local calls/SMS{'\n'}&middot; valid for 30 days</Text>
                                 <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
                             </View>
                         </TouchableHighlight>
@@ -153,7 +228,8 @@ class Topup extends Component {
                             <View style={styles.topUpPlaceholderContainer}>
                                 <Image style={styles.topUpPlaceholderImage}
                                        source={require('./resources/images/28topupcard.png')}/>
-                                <Text style={styles.topUpBonusPlaceholderText}>&middot; Bundled Local Data 350 MB{'\n'}&middot; $18 local outgoing calls +
+                                <Text style={styles.topUpBonusPlaceholderText}>&middot; Bundled Local Data 350
+                                    MB{'\n'}&middot; $18 local outgoing calls +
                                     500 SMS{'\n'}&middot; valid for 30 days</Text>
                                 <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
                             </View>
@@ -164,7 +240,8 @@ class Topup extends Component {
                             <View style={styles.topUpPlaceholderContainer}>
                                 <Image style={styles.topUpPlaceholderImage}
                                        source={require('./resources/images/30topupcard.png')}/>
-                                <Text style={styles.topUpBonusPlaceholderText}>&middot; Bundled Local Data 350 MB{'\n'}&middot; $18 local outgoing calls +
+                                <Text style={styles.topUpBonusPlaceholderText}>&middot; Bundled Local Data 350
+                                    MB{'\n'}&middot; $18 local outgoing calls +
                                     500 SMS{'\n'}&middot; valid for 30 days</Text>
                                 <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
                             </View>
@@ -177,18 +254,17 @@ class Topup extends Component {
     }
 
     render() {
-        var buttonOneColor = '#f37022';
-        var buttonTwoColor = '#d4d5d7';
+        var onlineTopup = '#f37022';
+        var physicalTopUp = '#d4d5d7';
 
         if (this.state.renderView == 1) {
-            buttonOneColor = '#f37022';
-            buttonTwoColor = '#d4d5d7';
+            onlineTopup = '#f37022';
+            physicalTopUp = '#d4d5d7';
 
-        } else {
-            buttonOneColor = '#d4d5d7';
-            buttonTwoColor = '#f37022';
+        } else if (this.state.renderView == 2){
+            onlineTopup = '#d4d5d7';
+            physicalTopUp = '#f37022';
         }
-
         var navigationView = (
             <View style={styles.navigationDrawer}>
                 <View style={styles.drawerLogoContainer}><Image
@@ -198,23 +274,23 @@ class Topup extends Component {
                     style={styles.drawerLogoImage}
                     source={require('./resources/images/logo.png')}
                     /></Image></View>
-                <TouchableHighlight style={styles.navigatorItem} onPress={this.navBalance.bind(this)}>
+                <TouchableHighlight style={styles.navigatorItem} onPress={this.navProfile.bind(this)}>
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/icons/dollar.png')}
+                            source={require('./resources/icons/profile.png')}
                             />
                         <Text
-                            style={styles.navigatorText}>Balance</Text></View>
+                            style={styles.navigatorText}>My Profile</Text></View>
                 </TouchableHighlight>
-                <TouchableHighlight style={styles.navigatorItem} onPress={this.navTopUp.bind(this)}>
+                <TouchableHighlight style={styles.navigatorItem} onPress={this.navTransactions.bind(this)}>
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/icons/topupaccount.png')}
+                            source={require('./resources/icons/graph.png')}
                             />
                         <Text
-                            style={styles.navigatorText}>Top-Up</Text></View>
+                            style={styles.navigatorText}>My Transactions</Text></View>
                 </TouchableHighlight>
                 <TouchableHighlight style={styles.navigatorItem} onPress={this.navPromotions.bind(this)}>
                     <View style={styles.navigatorItem}>
@@ -243,6 +319,15 @@ class Topup extends Component {
                         <Text
                             style={styles.navigatorText}>Settings</Text></View>
                 </TouchableHighlight>
+                <TouchableHighlight style={styles.navigatorItem} onPress={this.navLogin.bind(this)}>
+                    <View style={styles.navigatorItem}>
+                        <Image
+                            style={styles.navigatorIcon}
+                            source={require('./resources/icons/logout.png')}
+                            />
+                        <Text
+                            style={styles.navigatorText}>Log Out</Text></View>
+                </TouchableHighlight>
             </View>
         );
         return (
@@ -264,34 +349,38 @@ class Topup extends Component {
                     <Text style={styles.heading}>Top Up</Text>
                 </View>
                 <View style={styles.accountTab}>
-                    <TouchableHighlight style={[styles.accountContainer, {borderBottomColor: buttonOneColor}]}
+                    <TouchableHighlight style={[styles.accountContainer, {borderBottomColor: onlineTopup}]}
                                         onPress={this.setRenderState.bind(this, 1)} underlayColor='rgba(0, 0, 0, 0.1)'>
 
-                        <Text style={styles.accountHeadingText}>Main Account
+                        <Text style={styles.accountHeadingText}>Online Top Up
                         </Text>
                     </TouchableHighlight>
-                    <TouchableHighlight style={[styles.accountContainer, {borderBottomColor: buttonTwoColor}]}
+                    <TouchableHighlight style={[styles.accountContainer, {borderBottomColor: physicalTopUp}]}
                                         onPress={this.setRenderState.bind(this, 2)} underlayColor='rgba(0, 0, 0, 0.1)'>
 
-                        <Text style={styles.accountHeadingText}>Bonus Account
+                        <Text style={styles.accountHeadingText}>Top Up Via Card
                         </Text>
                     </TouchableHighlight>
                 </View>
                 {this.renderView()}
                 <Tabs style={styles.navBar}>
-                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navBalance.bind(this)} underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navBalance.bind(this)}
+                                        underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
                         style={styles.navBarIcons}
                         source={require('./resources/icons/dollar.png')}
                         /><Text style={styles.navText}>Balance</Text></View></TouchableHighlight>
-                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navTopUp.bind(this)} underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navTopUp.bind(this)}
+                                        underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
                         style={styles.navBarIcons}
                         source={require('./resources/icons/topupaccount.png')}
                         /><Text style={styles.navText}>Top-Up</Text></View></TouchableHighlight>
-                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navBalance.bind(this)} underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navData.bind(this)}
+                                        underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
                         style={styles.navBarIcons}
                         source={require('./resources/icons/data.png')}
                         /><Text style={styles.navText}>Data</Text></View></TouchableHighlight>
-                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navBalance.bind(this)} underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navAddons.bind(this)}
+                                        underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
                         style={styles.navBarIcons}
                         source={require('./resources/icons/addon.png')}
                         /><Text style={styles.navText}>Add-ons</Text></View></TouchableHighlight>
@@ -350,7 +439,7 @@ const styles = StyleSheet.create({
         marginTop: 5
     },
     navigatorText: {
-        width: 100,
+        width: 150,
         height: 20,
         alignSelf: 'center',
         color: '#fff',
@@ -378,12 +467,67 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#A7A8A3',
     },
+    accountTypeTab: {
+        backgroundColor: '#EEEFEA',
+        flexDirection: 'row',
+        padding: 18,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: Dimensions.get('window').height / 100 * 8,
+        width: Dimensions.get('window').width
+    },
+    mainAccountTypeTab: {
+        height: Dimensions.get('window').height / 100 * 4,
+        width: Dimensions.get('window').width / 100 * 30,
+        paddingTop: 4,
+        paddingLeft: 5,
+        alignItems: 'flex-end',
+        borderRightWidth: 15,
+        borderRightColor: '#fff',
+        borderTopLeftRadius: 15,
+        borderBottomLeftRadius: 15
+    },
+    bonusAccountTypeTab: {
+        height: Dimensions.get('window').height / 100 * 4,
+        width: Dimensions.get('window').width / 100 * 30,
+        paddingTop: 4,
+        paddingLeft: 12,
+        alignItems: 'flex-start',
+        borderTopRightRadius: 15,
+        borderBottomRightRadius: 15
+    },
+    accountTypeTabText:{
+        fontSize: 12,
+        color: '#EDE9E9',
+        justifyContent: 'center'
+    },
     topUpContainer: {
         backgroundColor: '#EEEFEA',
         flexDirection: 'column',
         height: Dimensions.get('window').height / 100 * 90,
         width: Dimensions.get('window').width,
         alignSelf: 'center'
+    },
+    topUpBackground: {
+        backgroundColor: '#fff',
+        flexDirection: 'column',
+        height: Dimensions.get('window').height / 100 * 80,
+        width: Dimensions.get('window').width,
+        alignItems: 'center',
+        paddingTop: Dimensions.get('window').height / 100 * 10,
+    },
+    accountTypeTabDescription: {
+        fontSize: 16,
+        textAlign: 'center',
+        color: '#959292',
+    },
+    topUpNowButton: {
+        width: 200,
+        height: 40,
+        backgroundColor: '#f37124',
+        borderRadius: 20,
+        paddingTop: 10,
+        marginTop: 20
     },
     topUpButton: {
         width: Dimensions.get('window').width,
@@ -393,6 +537,11 @@ const styles = StyleSheet.create({
         borderColor: '#DCDCDA',
         flexDirection: 'row',
         justifyContent: 'space-around'
+    },
+    topUpButtonText: {
+        fontSize: 14,
+        textAlign: 'center',
+        color: '#fff',
     },
     topUpPlaceholderContainer: {
         width: Dimensions.get('window').width,
@@ -413,32 +562,25 @@ const styles = StyleSheet.create({
         color: '#898989',
     },
 
-    arrowImage: {
-        width: 15,
-        height: 15,
-        marginBottom: 16,
-        alignSelf: 'flex-end',
-        justifyContent: 'flex-end',
-    },
     typeChangeButtonText: {
         fontSize: 12,
         color: '#656d73',
     },
     navBar: {
-        backgroundColor:'#2c2a2a'
+        backgroundColor: '#2c2a2a'
     },
     navText: {
-        fontSize: 14,
+        fontSize: 13,
         textAlign: 'center',
         color: '#fff',
     },
     navBarIcons: {
-        width: 18,
-        height: 18,
+        width: 17,
+        height: 17,
         alignSelf: 'center'
     },
     navBarButtons: {
-        padding:12,
+        padding: 14,
         width: 90,
         height: 60,
         flexDirection: 'column',

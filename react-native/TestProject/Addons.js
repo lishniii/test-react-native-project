@@ -22,7 +22,7 @@ var Tabs = require('react-native-tabs');
 
 var _navigator; // we fill this up upon on first navigation.
 
-class Settings extends Component {
+class Addons extends Component {
     constructor(props) {
         super(props);
 
@@ -192,7 +192,7 @@ class Settings extends Component {
                                 />
                         </TouchableHighlight>
                     </View>
-                    <Text style={styles.heading}>Settings</Text>
+                    <Text style={styles.heading}>Add Ons</Text>
                 </View>
 
                 <Tabs style={styles.navBar}>
@@ -301,4 +301,4 @@ const styles = StyleSheet.create({
 
 });
 
-module.exports = Settings;
+module.exports = Addons;

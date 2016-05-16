@@ -18,14 +18,41 @@ import React, {
     ListView
 } from 'react-native';
 
+var Tabs = require('react-native-tabs');
 
 var _navigator; // we fill this up upon on first navigation.
 
 class Promotions extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            optionSelected: 1,
+            renderView: 1
+        }
+    }
+
+    onSelect(index) {
+        this.setState({
+            optionSelected: index + 1
+        });
+    }
+
+    setRenderState(value) {
+        this.setState({
+            renderView: value
+        });
+    }
 
     navTopUp() {
         this.props.navigator.push({
             id: 'topup'
+        })
+    }
+
+    navLogin() {
+        this.props.navigator.push({
+            id: 'login'
         })
     }
 
@@ -53,11 +80,37 @@ class Promotions extends Component {
         })
     }
 
+    navProfile() {
+        this.props.navigator.push({
+            id: 'profile'
+        })
+    }
+
+    navTransactions() {
+        this.props.navigator.push({
+            id: 'transactions'
+        })
+    }
+
+    navData() {
+        this.props.navigator.push({
+            id: 'data'
+        })
+    }
+
+    navAddons() {
+        this.props.navigator.push({
+            id: 'addons'
+        })
+    }
+
     openDrawer() {
         this.refs['DRAWER'].openDrawer()
     }
 
+
     render() {
+
         var navigationView = (
             <View style={styles.navigationDrawer}>
                 <View style={styles.drawerLogoContainer}><Image
@@ -67,29 +120,29 @@ class Promotions extends Component {
                     style={styles.drawerLogoImage}
                     source={require('./resources/images/logo.png')}
                     /></Image></View>
-                <TouchableHighlight style={styles.navigatorItem} onPress={this.navBalance.bind(this)}>
+                <TouchableHighlight style={styles.navigatorItem} onPress={this.navProfile.bind(this)}>
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
+                            source={require('./resources/icons/profile.png')}
                             />
                         <Text
-                            style={styles.navigatorText}>Balance</Text></View>
+                            style={styles.navigatorText}>My Profile</Text></View>
                 </TouchableHighlight>
-                <TouchableHighlight style={styles.navigatorItem} onPress={this.navTopUp.bind(this)}>
+                <TouchableHighlight style={styles.navigatorItem} onPress={this.navTransactions.bind(this)}>
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
+                            source={require('./resources/icons/graph.png')}
                             />
                         <Text
-                            style={styles.navigatorText}>Top-Up</Text></View>
+                            style={styles.navigatorText}>My Transactions</Text></View>
                 </TouchableHighlight>
                 <TouchableHighlight style={styles.navigatorItem} onPress={this.navPromotions.bind(this)}>
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
+                            source={require('./resources/icons/pricetag.png')}
                             />
                         <Text
                             style={styles.navigatorText}>Promotions</Text></View>
@@ -98,7 +151,7 @@ class Promotions extends Component {
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
+                            source={require('./resources/icons/pin.png')}
                             />
                         <Text
                             style={styles.navigatorText}>Locate Us</Text></View>
@@ -107,10 +160,19 @@ class Promotions extends Component {
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/images/drawerbackground.jpg')}
+                            source={require('./resources/icons/settings.png')}
                             />
                         <Text
                             style={styles.navigatorText}>Settings</Text></View>
+                </TouchableHighlight>
+                <TouchableHighlight style={styles.navigatorItem} onPress={this.navLogin.bind(this)}>
+                    <View style={styles.navigatorItem}>
+                        <Image
+                            style={styles.navigatorIcon}
+                            source={require('./resources/icons/logout.png')}
+                            />
+                        <Text
+                            style={styles.navigatorText}>Log Out</Text></View>
                 </TouchableHighlight>
             </View>
         );
@@ -130,107 +192,31 @@ class Promotions extends Component {
                                 />
                         </TouchableHighlight>
                     </View>
-                    <Text style={styles.heading}>Top Up</Text>
+                    <Text style={styles.heading}>Promotions</Text>
                 </View>
-                <View style={styles.topUpContainer}>
-                    <View style={styles.bannerContainer}><Image
-                        style={styles.banner}
-                        source={require('./resources/images/logo.png')}
-                        /></View>
-                    <View style={styles.instructionsContainer}><Text style={styles.instructionsText}>Simply follow the
-                        below steps to Top-Up your card</Text></View>
-                    <ScrollView>
-                        <TouchableHighlight style={styles.topUpButton}
 
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 10</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 0.50)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 15</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}></Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 17</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 2.50)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 18</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}></Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 23</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 3)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 28</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}></Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 30</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 5)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 48</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 12)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight style={styles.topUpButton}
-
-                                            underlayColor='rgba(0, 0, 0, 0.1)'>
-                            <View style={styles.topUpPlaceholderContainer}>
-                                <Text style={styles.topUpPlaceholderText}>$ 88</Text>
-                                <Text style={styles.topUpBonusPlaceholderText}>Bonus ($ 22)</Text>
-                                <Image style={styles.arrowImage} source={require('./resources/icons/arrow.png')}/>
-                            </View>
-                        </TouchableHighlight>
-                    </ScrollView>
-                </View>
+                <Tabs style={styles.navBar}>
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navBalance.bind(this)}
+                                        underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                        style={styles.navBarIcons}
+                        source={require('./resources/icons/dollar.png')}
+                        /><Text style={styles.navText}>Balance</Text></View></TouchableHighlight>
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navTopUp.bind(this)}
+                                        underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                        style={styles.navBarIcons}
+                        source={require('./resources/icons/topupaccount.png')}
+                        /><Text style={styles.navText}>Top-Up</Text></View></TouchableHighlight>
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navData.bind(this)}
+                                        underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                        style={styles.navBarIcons}
+                        source={require('./resources/icons/data.png')}
+                        /><Text style={styles.navText}>Data</Text></View></TouchableHighlight>
+                    <TouchableHighlight style={styles.navBarButtons} onPress={this.navAddons.bind(this)}
+                                        underlayColor='rgba(0, 0, 0, 0.5)'><View><Image
+                        style={styles.navBarIcons}
+                        source={require('./resources/icons/addon.png')}
+                        /><Text style={styles.navText}>Add-ons</Text></View></TouchableHighlight>
+                </Tabs>
             </DrawerLayoutAndroid>
         );
     }
@@ -260,7 +246,7 @@ const styles = StyleSheet.create({
     },
     navigationDrawer: {
         flex: 1,
-        backgroundColor: '#23140D'
+        backgroundColor: '#292727'
     },
     drawerLogoContainer: {
         width: 240,
@@ -273,96 +259,44 @@ const styles = StyleSheet.create({
         marginTop: 22
     },
     navigatorItem: {
-        width: 130,
+        width: 240,
         height: 50,
         flexDirection: 'row',
         paddingLeft: 15
     },
     navigatorIcon: {
-        width: 10,
-        height: 15,
+        width: 18,
+        height: 18,
         alignSelf: 'center',
         marginTop: 5
     },
     navigatorText: {
-        width: 50,
-        height: 15,
+        width: 150,
+        height: 20,
         alignSelf: 'center',
         color: '#fff',
-        marginLeft: 15
+        marginLeft: 15,
+        marginTop: 5
     },
-    banner: {
-        alignSelf: 'center',
-        width: 150,
-        height: 150,
-        margin: 20
+    navBar: {
+        backgroundColor: '#2c2a2a'
     },
-    topUpContainer: {
-        backgroundColor: '#EEEFEA',
-        flexDirection: 'column',
-        height: Dimensions.get('window').height / 100 * 90,
-        width: Dimensions.get('window').width,
+    navText: {
+        fontSize: 13,
+        textAlign: 'center',
+        color: '#fff',
+    },
+    navBarIcons: {
+        width: 17,
+        height: 17,
         alignSelf: 'center'
     },
-    bannerContainer: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 100 * 30,
-        backgroundColor: '#ffdd20'
-    },
-    instructionsContainer: {
-        width: Dimensions.get('window').width,
-
-    },
-    instructionsText: {
-        marginLeft: 20,
-        marginRight: 20,
-        marginTop: 12,
-        marginBottom: 12,
-        fontSize: 14,
-        textAlign: 'left',
-        color: '#A7A8A3',
-    },
-    topUpPlaceholderContainer: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 100 * 8,
-        flexDirection: 'row',
-    },
-    topUpPlaceholderText: {
-        width: Dimensions.get('window').width / 100 * 25,
-        marginLeft: 40,
-        marginTop: 15,
-        fontSize: 14,
-        textAlign: 'left',
-        color: '#898989',
-        fontWeight: 'bold'
-    },
-    topUpBonusPlaceholderText: {
-        width: Dimensions.get('window').width / 100 * 45,
-        marginLeft: 20,
-        marginTop: 18,
-        fontSize: 11,
-        textAlign: 'left',
-        color: '#898989',
-    },
-    topUpButton: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height / 100 * 8,
-        backgroundColor: '#fbfbfb',
-        borderTopWidth: 1,
-        borderColor: '#DCDCDA',
-        flexDirection: 'row',
-    },
-    arrowImage: {
-        width: 15,
-        height: 15,
-        marginBottom: 16,
-        alignSelf: 'flex-end',
-        justifyContent: 'flex-end',
-    },
-    typeChangeButtonText: {
-        fontSize: 12,
-        color: '#656d73',
-    },
+    navBarButtons: {
+        padding: 14,
+        width: 90,
+        height: 60,
+        flexDirection: 'column',
+    }
 
 
 });

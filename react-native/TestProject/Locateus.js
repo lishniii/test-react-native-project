@@ -111,6 +111,12 @@ class Locateus extends Component {
         })
     }
 
+    navLogin() {
+        this.props.navigator.push({
+            id: 'login'
+        })
+    }
+
     navLocateUs() {
         this.props.navigator.push({
             id: 'locateus'
@@ -135,6 +141,29 @@ class Locateus extends Component {
         })
     }
 
+    navProfile() {
+        this.props.navigator.push({
+            id: 'profile'
+        })
+    }
+
+    navTransactions() {
+        this.props.navigator.push({
+            id: 'transactions'
+        })
+    }
+
+    navData() {
+        this.props.navigator.push({
+            id: 'data'
+        })
+    }
+
+    navAddons() {
+        this.props.navigator.push({
+            id: 'addons'
+        })
+    }
     openDrawer() {
         this.refs['DRAWER'].openDrawer()
     }
@@ -149,23 +178,23 @@ class Locateus extends Component {
                     style={styles.drawerLogoImage}
                     source={require('./resources/images/logo.png')}
                     /></Image></View>
-                <TouchableHighlight style={styles.navigatorItem} onPress={this.navBalance.bind(this)}>
+                <TouchableHighlight style={styles.navigatorItem} onPress={this.navProfile.bind(this)}>
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/icons/dollar.png')}
+                            source={require('./resources/icons/profile.png')}
                             />
                         <Text
-                            style={styles.navigatorText}>Balance</Text></View>
+                            style={styles.navigatorText}>My Profile</Text></View>
                 </TouchableHighlight>
-                <TouchableHighlight style={styles.navigatorItem} onPress={this.navTopUp.bind(this)}>
+                <TouchableHighlight style={styles.navigatorItem} onPress={this.navTransactions.bind(this)}>
                     <View style={styles.navigatorItem}>
                         <Image
                             style={styles.navigatorIcon}
-                            source={require('./resources/icons/topupaccount.png')}
+                            source={require('./resources/icons/graph.png')}
                             />
                         <Text
-                            style={styles.navigatorText}>Top-Up</Text></View>
+                            style={styles.navigatorText}>My Transactions</Text></View>
                 </TouchableHighlight>
                 <TouchableHighlight style={styles.navigatorItem} onPress={this.navPromotions.bind(this)}>
                     <View style={styles.navigatorItem}>
@@ -193,6 +222,15 @@ class Locateus extends Component {
                             />
                         <Text
                             style={styles.navigatorText}>Settings</Text></View>
+                </TouchableHighlight>
+                <TouchableHighlight style={styles.navigatorItem} onPress={this.navLogin.bind(this)}>
+                    <View style={styles.navigatorItem}>
+                        <Image
+                            style={styles.navigatorIcon}
+                            source={require('./resources/icons/logout.png')}
+                            />
+                        <Text
+                            style={styles.navigatorText}>Log Out</Text></View>
                 </TouchableHighlight>
             </View>
         );
@@ -368,20 +406,6 @@ const styles = StyleSheet.create({
     },
     navigationDrawer: {
         flex: 1,
-        backgroundColor: '#23140D'
-    },
-    drawerLogoContainer: {
-        width: 240,
-        height: 170,
-    },
-    drawerLogoImage: {
-        width: 130,
-        height: 130,
-        alignSelf: 'center',
-        marginTop: 22
-    },
-    navigationDrawer: {
-        flex: 1,
         backgroundColor: '#292727'
     },
     drawerLogoContainer: {
@@ -407,7 +431,7 @@ const styles = StyleSheet.create({
         marginTop: 5
     },
     navigatorText: {
-        width: 100,
+        width: 150,
         height: 20,
         alignSelf: 'center',
         color: '#fff',
@@ -628,21 +652,22 @@ const styles = StyleSheet.create({
         backgroundColor:'#2c2a2a'
     },
     navText: {
-        fontSize: 14,
+        fontSize: 13,
         textAlign: 'center',
         color: '#fff',
     },
     navBarIcons: {
-        width: 18,
-        height: 18,
+        width: 17,
+        height: 17,
         alignSelf: 'center'
     },
     navBarButtons: {
-        padding:12,
+        padding:14,
         width: 90,
         height: 60,
         flexDirection: 'column',
     }
+
 });
 
 module.exports = Locateus;

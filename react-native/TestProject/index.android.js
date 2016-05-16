@@ -20,13 +20,16 @@ var Locateus = require('./Locateus');
 var Balance = require('./Balance');
 var Promotions = require('./Promotions');
 var Settings = require('./Settings');
-
+var Profile = require('./Profile');
+var Transactions = require('./Transactions');
+var Data = require('./Data');
+var Addons = require('./Addons');
 
 class TestProject extends React.Component {
     render() {
         return (
             <Navigator
-                initialRoute={{id: 'balance'}}
+                initialRoute={{id: 'login'}}
                 renderScene={this.navigatorRenderScene}/>
         );
     }
@@ -46,6 +49,14 @@ class TestProject extends React.Component {
                 return (<Promotions navigator={navigator} title="promotions"/>);
             case 'settings':
                 return (<Settings navigator={navigator} title="settings"/>);
+            case 'profile':
+                return (<Profile navigator={navigator} title="profile"/>);
+            case 'transactions':
+                return (<Transactions navigator={navigator} title="transactions"/>);
+            case 'data':
+                return (<Data navigator={navigator} title="data"/>);
+            case 'addons':
+                return (<Addons navigator={navigator} title="addons"/>);
         }
     }
 }

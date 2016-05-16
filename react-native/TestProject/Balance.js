@@ -394,22 +394,21 @@ const styles = StyleSheet.create({
         backgroundColor:'#2c2a2a'
     },
     navText: {
-        fontSize: 14,
+        fontSize: 13,
         textAlign: 'center',
         color: '#fff',
     },
     navBarIcons: {
-        width: 18,
-        height: 18,
+        width: 17,
+        height: 17,
         alignSelf: 'center'
     },
     navBarButtons: {
-        padding:12,
+        padding:14,
         width: 90,
         height: 60,
         flexDirection: 'column',
     }
-
 });
 
 module.exports = Balance;
